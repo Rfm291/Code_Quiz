@@ -33,11 +33,12 @@ timeEl.textContent = time;
 
 function ClockTick() {
     // update time
-    time--;
+    time-- ;
     timeEl.textContent = time;
   
     // check if user ran out of time
     if (time <= 0) {
+    clearInterval(timerId);
       quizEnd();
     }
   }
