@@ -4,7 +4,7 @@ var time = questions.length * 15;
 var timerId;
 
 // variables to reference DOM elements
-var timeEl = document.querySelector("#time");
+var timeEl = document.getElementById("time")
 var choicesEl = document.getElementById("choices");
 var submitBtn = document.getElementById("submit");
 var startBtn = document.getElementById("start");
@@ -19,26 +19,29 @@ var sfxWrong = new Audio("Assets/SFX/incorrect.wav");
 
 function startQuiz() {
   // hide start screen
+
  var startScreenEl = document.querySelector("#start-screen")
   // un-hide questions section
+
   startScreenEl.style.display = "none"
 questionsEl.style.display = "block"
-  // start timer
-timerId = setInterval(ClockTick, 1000);
-  // show starting time
-timeEl.textContent = time;
 
-  getQuestion();
+ // start timer
+ timerId = setInterval(ClockTick, 1000);
+  
+ // show starting time
+ timeEl.textContent = time;
+
+ getQuestion();
 }
 
 function ClockTick() {
     // update time
-    time-- ;
+    time--;
     timeEl.textContent = time;
   
     // check if user ran out of time
     if (time <= 0) {
-    clearInterval(timerId);
       quizEnd();
     }
   }
@@ -76,8 +79,8 @@ function questionClick() {
  // penalize time
  time -= 15;
 
- if (time < 0){
-     time = 0;
+ if (time < 0) {
+    time = 0;
  }
  // display new time on page
  timeEl.textContent = time;
@@ -98,9 +101,9 @@ if (this.value !== questions[currentQuestionIndex].answer) {
     sfxRight.play();
 }
   // flash right/wrong feedback on page for half a second
-  feedbackEl.setAttribute("class", "feedback");
-  setTimeout(function() {
-    feedbackEl.setAttribute("class", "feedback hide");
+feedbackEl.setAttribute("class", "feedback");
+setTimeout(function() {
+feedbackEl.setAttribute("class", "feedback hide");
   }, 1000);
   // move to next question
   currentQuestionIndex++;
@@ -114,13 +117,15 @@ if (this.value !== questions[currentQuestionIndex].answer) {
   
 function quizEnd() {
   // stop timer
-clearInterval(timerId)
+clearInterval(timerId);
+
   // show end screen
   var highscoreSectionEl = document.querySelector("#highscore-section");
   highscoreSectionEl.setAttribute("class", "show");
   // show final score
 var finalscoreEl = document.querySelector("#final-score");
 finalscoreEl.textContent = time;
+
   // hide questions section
   questionsEl.style.display = "none"
 }
@@ -132,12 +137,12 @@ var initials = initialsEl.value.trim();
   // make sure value wasn't empty
   if (initials !== "") {
 // get saved scores from localstorage, or if not any, set to empty array
-var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
     // format new score object for current user
-var NewScore = {
-    score: time,
-    initials: initials
-};
+    var NewScore = {
+        score: time,
+        initials: initials
+      };
     // save to localstorage
 highscores.push(NewScore);
 window.localStorage.setItem("highscores", JSON.stringify(highscores));
